@@ -9,15 +9,8 @@ struct Mesh {
   explicit Mesh(size_t size) : u(size + 1) {
   }
 
-  void Load(const std::string &path) {
-    std::ifstream str(path);
-    for (auto &x : u) {
-      str >> x;
-    }
-  }
-
-  void Save(const std::string &path) {
-    std::ofstream str(path);
+  void Save(const std::string &name) {
+    std::ofstream str("../res/"+ name);
     for (auto &x : u) {
       str << x << " ";
     }
@@ -106,14 +99,14 @@ int main() {
   if (c > 1) {
     std::cout << "Courant condition is not met! Schemes are unstable.";
   }
-  b.Save("../0.txt");
+  b.Save("0.txt");
 
   for (size_t i = 0; i < steps; ++i) {
     ExplicitGodunovScheme(b, f, c);
     f.BoundaryHeaviside();
     std::swap(b, f);
   }
-  f.Save("../1.txt");
+  f.Save("1.txt");
 
   b.Heaviside();
   for (size_t i = 0; i < steps; ++i) {
@@ -121,7 +114,7 @@ int main() {
     f.BoundaryHeaviside();
     std::swap(b, f);
   }
-  f.Save("../2.txt");
+  f.Save("2.txt");
 
   b.Heaviside();
   for (size_t i = 0; i < steps; ++i) {
@@ -129,7 +122,7 @@ int main() {
     f.BoundaryHeaviside();
     std::swap(b, f);
   }
-  f.Save("../3.txt");
+  f.Save("3.txt");
 
   b.Heaviside();
   for (size_t i = 0; i < steps; ++i) {
@@ -137,7 +130,7 @@ int main() {
     f.BoundaryHeaviside();
     std::swap(b, f);
   }
-  f.Save("../4.txt");
+  f.Save("4.txt");
 
   b.Heaviside();
   for (size_t i = 0; i < steps; ++i) {
@@ -145,7 +138,7 @@ int main() {
     f.BoundaryHeaviside();
     std::swap(b, f);
   }
-  f.Save("../5.txt");
+  f.Save("5.txt");
 
   return 0;
 }
